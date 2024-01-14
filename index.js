@@ -1,5 +1,3 @@
-
-
 const express = require('express')
 const sqlite3 = require('sqlite3')
 const app = express()
@@ -84,5 +82,3 @@ const port = process.env.PORT || 3000
 app.listen(port, () => {
     console.log(`listening on port at http://localhost:${port}  ...`)
 })
-
-
