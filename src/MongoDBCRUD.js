@@ -1,11 +1,14 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+const express = require('express')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 
-mongoose.connect("mongodb://admin:SYRxob85191@node58798-thanayutnode.proen.app.ruk-com.cloud:11907",{
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+
+mongoose.connect(
+    "mongodb://admin:SYRxob85191@node58798-thanayutnode.proen.app.ruk-com.cloud:11907", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    }
+);
 
 const Book = mongoose.model("Book", {
     id: {
@@ -13,68 +16,75 @@ const Book = mongoose.model("Book", {
         unique: true,
         required: true,
     },
-title:String,
-author:String,
-});
+    title: String,
+    author: String,
+})
 
-const app = express();
-app.use(bodyParser.json());
+const app = express()
+app.use(bodyParser.json())
 
-app.post("/books",async(req,res) => {
+
+app.post('/books', async(req, res) => {
     try {
-        const lastBook = await Book.findOne().sort({id: -1});
-        const nextId = lastBook ? lastBook.id + 1:1;
+
+        const lastBook = await Book.findOne().sort({ id: -1 });
+        const nextId = lastBook ? lastBook.id + 1 : 1;
+
 
         const book = new Book({
             id: nextId,
             ...req.body,
         });
+
         await book.save();
         res.send(book);
-    } catch (error){
+    } catch (error) {
         res.status(500).send(error);
     }
-});
+})
 
-app.get("/books",async(req,res) => {
+
+app.get('/books', async(req, res) => {
     try {
-        const books = await Book.find();
-        res.send(books);
-    } catch (error){
-        res.status(500).send(error);
+        const books = await Book.find()
+        res.send(books)
+    } catch (err) {
+        res.status(500).send('Error')
     }
-});
+})
 
-app.get("/books/:id",async(req,res) => {
+
+app.get('/books/:id', async(req, res) => {
     try {
-        const book = await Book.findOne(req.params.id);
-        res.send(book);
-    } catch (error){
-        res.status(500).send(error);
+        const book = await Book.findOne({ id: req.params.id })
+        res.send(books)
+    } catch (err) {
+        res.status(500).send('Error')
     }
-});
+})
 
-app.put("/books/:id",async(req,res) => {
+
+app.put('/books/:id', async(req, res) => { // show create desktop
     try {
-        const book = await Book.findOneAndUpdate({id:req.params.id},req.body,{
-            new:true,
-        });
-        res.send(book);
-    } catch (error){
-        res.status(500).send(error);
+        const book = await Book.findOneAndUpdate({ id: req.params.id }, req.body, {
+            new: true,
+        })
+        res.send(books)
+    } catch (err) {
+        res.status(500).send('Error')
     }
-});
+})
 
-app.delete("/books/:id",async(req,res) => {
+
+app.delete('/books/:id', async(req, res) => {
     try {
-        const book = await Book.findOneAndDelete({id:req.params.id});
-        res.send(book);
-    } catch (error){
-        res.status(500).send(error);
+        const book = await Book.findOneAndDelete({ id: req.params.id })
+        res.send(books)
+    } catch (err) {
+        res.status(500).send('Error')
     }
-});
+})
 
-const port = process.env.PORT || 3000;
-app.listen(PORT,() => {
-    console.log(`Server started at http://localhost:${PORT}`);
-});
+
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log(`Server Started at http://localhost${port}`))
