@@ -27,19 +27,19 @@ app.use(bodyParser.json())
 app.post('/books', async(req, res) => {
     try {
 
-        const lastBook = await Book.findOne().Sort({ id: -1 })
-        const nextId = lastBook ? lastBook.id + 1 : 1
+        const lastBook = await Book.findOne().sort({ id: -1 });
+        const nextId = lastBook ? lastBook.id + 1 : 1;
 
 
         const book = new Book({
             id: nextId,
             ...req.body,
-        })
+        });
 
-        await book.save()
-        res.send(book)
-    } catch (err) {
-        res.status(500).send('Error')
+        await book.save();
+        res.send(book);
+    } catch (error) {
+        res.status(500).send(error);
     }
 })
 
