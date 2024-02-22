@@ -57,7 +57,7 @@ app.get('/books', async(req, res) => {
 app.get('/books/:id', async(req, res) => {
     try {
         const book = await Book.findOne({ id: req.params.id })
-        res.send(books)
+        res.send(book)
     } catch (err) {
         res.status(500).send('Error')
     }
@@ -69,7 +69,7 @@ app.put('/books/:id', async(req, res) => { // show create desktop
         const book = await Book.findOneAndUpdate({ id: req.params.id }, req.body, {
             new: true,
         })
-        res.send(books)
+        res.send(book)
     } catch (err) {
         res.status(500).send('Error')
     }
@@ -79,7 +79,7 @@ app.put('/books/:id', async(req, res) => { // show create desktop
 app.delete('/books/:id', async(req, res) => {
     try {
         const book = await Book.findOneAndDelete({ id: req.params.id })
-        res.send(books)
+        res.send(book)
     } catch (err) {
         res.status(500).send('Error')
     }
