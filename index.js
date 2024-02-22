@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 
 
 mongoose.connect(
-    "mongodb://admin:SYRxob85191@node58798-thanayutnode.proen.app.ruk-com.cloud", {
+    "mongodb://admin:SYRxob85191@node58798-thanayutnode.proen.app.ruk-com.cloud/books", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }
